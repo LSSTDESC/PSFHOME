@@ -59,8 +59,8 @@ class PSFSameSecondTest:
             gaussian_profile = self.toSize(gaussian_profile, self.gal_sigma)
             self.gal_light = gaussian_profile.withFlux(self.gal_flux)
         elif gal_type == 'sersic':
-            sersic_profile = galsim.Sersic(sersicn, half_light_radius = 1.0)
-            sersic_profile = self.toSize(sersic_profile, self.gal_sigma)
+            sersic_profile = galsim.Sersic(sersicn, half_light_radius = self.gal_sigma)
+            #sersic_profile = self.toSize(sersic_profile, self.gal_sigma)
             self.gal_light = sersic_profile.withFlux(self.gal_flux)
 
 
@@ -215,6 +215,8 @@ class PSFSameSecondTest:
         results["psf_model_e1"] = self.psf_model_e1
         results["psf_model_e2"] = self.psf_model_e2
 
+
+        results["gal_hlr"] = self.gal_light.calculateHLR()
         
         results["prediction-error"] = results["prediction"]-results["measurement"]
         results["prediction-percenterror"] = results["prediction-error"]/results["e"]
