@@ -9,8 +9,25 @@ import scipy.stats as stats
 
 
 class shapeletXmoment:
+
+    """
+    A class to manipulate PSF using radial shapelets, and change higher moments by gradient descent.
+
+    """
     
     def __init__(self, psf,n, bmax = 10, pixel_scale = 1.0):
+
+        """
+        Initialize class.
+
+        Parameters:
+
+        psf: PSF galsim object 
+        n: highest order of higher moments we want to measure
+        bmax: highest shapelet moment we use to expand PSF
+        pixel_scale: pixel scale.
+
+        """
         self.n = n
         self.bmax = bmax
         self.pixel_scale = pixel_scale
@@ -21,6 +38,14 @@ class shapeletXmoment:
         self.base_bvec = self.base_shapelet.bvec
         
     def moment_measure(self, image, p, q):
+        """
+        Measure higher moment M_{pq} of the image. If we are measuring 2nd moments, return e2,sigma,e1.
+
+        Parameters:
+        image: galsim image we want to measrue
+        p: x index
+        q: y index
+        """
         n = p+q
         
         if n<2:
@@ -32,6 +57,12 @@ class shapeletXmoment:
             return self.higher_weighted_moment(image,p,q)
         
     def get_second_moment(self, image, p ,q):
+        """
+        Return higher moments
+        p=2, q=0: e1
+        p=1, q=1: sigma
+        o=0, q=2: e2
+        """
         image_results = galsim.hsm.FindAdaptiveMom(image)
         if p==2:
             return image_results.observed_shape.e1
@@ -41,6 +72,15 @@ class shapeletXmoment:
             return image_results.moments_sigma
         
     def higher_weighted_moment(self,gsimage,p,q):
+
+        """
+        Calculate the PSF higher moments.
+
+        Input: 
+        gsimage: galsim image object of the PSF
+        p: x index
+        q: y index
+        """
         
         image = gsimage.array
         

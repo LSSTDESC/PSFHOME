@@ -5,7 +5,7 @@ import galsim
 import numpy as np
 import scipy
 import metasm
-import shapeletXmoment
+from moments import *
 
 
 
