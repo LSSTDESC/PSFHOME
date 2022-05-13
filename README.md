@@ -3,6 +3,7 @@
 ## Introduction
 
 The PSF Higher Order Moments Error (PSFHOME) is a repository that contains the codes and notebooks, which produce the following paper:
+ - Impact of Point Spread Function Higher Moments Error on Weak Gravitational Lensing; Zhang and Mandelbaum for LSST (2021) https://arxiv.org/abs/2107.05644
  - Impact of Point Spread Function Higher Moments Error on Weak Gravitational Lensing II: A Comprehensive Study; Zhang et al. (2022) *in prep.*
 
  This code has the following functionalities:
