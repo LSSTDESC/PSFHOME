@@ -1,10 +1,12 @@
-# Impact of PSF Higher Order Moments Error (HOME) on WL
+# Impact of PSF Higher Order Moments Error (HOME) on Weak Lensing (WL)
 
 ## Introduction
 
-The PSF Higher Order Moments Error (PSFHOME) is a repository that contains the codes and notebooks, which produce the following paper:
+This repository includes software to quantitatively test the relation between the weak lensing shear bias and the modeling error of PSF higher order moments (beyond second).
+
+It is based on the following paper:
  - Impact of Point Spread Function Higher Moments Error on Weak Gravitational Lensing; Zhang and Mandelbaum for LSST (2021) https://arxiv.org/abs/2107.05644
- - Impact of Point Spread Function Higher Moments Error on Weak Gravitational Lensing II: A Comprehensive Study; Zhang et al. (2022) *in prep.*
+ - Impact of Point Spread Function Higher Moments Error on Weak Gravitational Lensing II: A Comprehensive Study; Zhang et al. (2022) *in prep.* to be released in May 2022.
 
  This code has the following functionalities:
  - change PSF second and higher moments through shapelet decomposition
@@ -49,8 +51,14 @@ Figure can be found in the "./plots"
 
 Please contact Tianqing Zhang (tianqinz "at" andrew.cmu.edu), if you need help for using the code. 
 
-Please feel free to make PRs if you want to contribute to this codebase.
+Please use the [issues](https://github.com/LSSTDESC/PSFHOME/issues) on this repository to suggest changes, request support, or otherwise contact the developer.
 
+
+## License
+
+The code has been publicly released; it is available under the terms of our [LICENSE](LICENSE.txt).
+
+If you make use of the software, please cite papers listed at the top of this README, and provide a link to this code repository.
 
 
 
