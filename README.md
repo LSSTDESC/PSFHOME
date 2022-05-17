@@ -21,7 +21,7 @@ Standardized installment is not available at the moment, please do
 ```
 git clone https://github.com/LSSTDESC/PSFHOME.git
 ```
-and install the dependency in a conda environment with python 3. 
+and install the dependency in a conda environment with python 3, requirement listed in `requirement.txt`
 
 ## Guideboard
 
