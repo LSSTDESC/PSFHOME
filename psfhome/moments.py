@@ -2,7 +2,7 @@ import galsim
 import numpy as np
 from numpy import mgrid, sum
 import scipy.linalg as alg
-import scipy.stats as stats
+import scipy.stats as stats 
 
 
 class shapeletXmoment:
