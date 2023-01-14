@@ -1,4 +1,6 @@
 .DS_Store
 notebooks/.DS_Store
 notebooks/.ipynb_checkpoints/*
+psfhome/.ipynb_checkpoints/*
+psfhome.egg-info/*
 psfhome/__pycache__/*
