@@ -327,18 +327,24 @@ class psfmod:
             # self.gp_corr_cov = gp_corr_cov
 
     def read_cov(self):
+        
+        """
+        Read the covariance from `self.cov_file`
+        """
 
         cov = np.loadtxt(self.cov_file)
 
-        # if self.shear_convention==False:
-        #     cov[0:80,0:40] *= 2
-        #     cov[0:40,0:80] *= 2
         self.cov = cov
         self.full_cov_inv = np.linalg.inv(cov)
 
         # self.cov = np.diag(np.diag(self.cov))
 
     def generate_ang_slice(self):
+        
+        """
+        Generate an array of index in the data vector that are included in the 
+        angular scale of the survey, specifyed by `self.theta_min` and `self.theta_max`
+        """
 
         slice_ = []
         r = self.r

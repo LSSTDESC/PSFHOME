@@ -123,6 +123,12 @@ class shapeletXmoment:
         return sum(std_x**p * std_y**q * weight * image) / sum(image * weight)
 
     def modify_pq(self, m, c, delta=0.0001):
+        
+        """
+        Modify the higher moments of the image by a multiplicative factor of m, 
+        or additive factor of c. m and c are arrays in the order of the default
+        order of the PSF higher moments.
+        """
 
         n = self.n
         mu = self.get_mu(n)
@@ -179,6 +185,9 @@ class shapeletXmoment:
         delta,
         pq_list,
     ):
+        """
+        helper function of 'modify_pq'
+        """
 
         A = np.zeros(shape=(mu, mu))
 
@@ -203,7 +212,9 @@ class shapeletXmoment:
         return current_mod_bvec
 
     def iterative_modify_pq(self, m, c, delta=0.0001, threshold=1e-6):
-
+        """
+        helper function of 'modify_pq'
+        """
         iterative_n = 10
 
         n = self.n
@@ -249,6 +260,10 @@ class shapeletXmoment:
         return current_psf
 
     def get_all_moments(self, image, pq_list):
+        """
+        get the moments of `image` in the same order of (p,q)
+        in `pq_list`
+        """
         results_list = []
         for tup in pq_list:
             results_list.append(self.moment_measure(image, tup[0], tup[1]))
@@ -256,13 +271,18 @@ class shapeletXmoment:
         return np.array(results_list)
 
     def pq2mode(self, p, q):
-
+        
         if p <= q:
             return (p + q) * (p + q + 1) // 2 + 2 * min(p, q)
         else:
             return (p + q) * (p + q + 1) // 2 + 2 * min(p, q) + 1
 
     def pq2shapelet(self, pq_list):
+        
+        """
+        convert (p,q) to the shapelet index
+        """
+        
         shapelet_index = []
         for tup in pq_list:
             shapelet_index.append(self.pq2mode(tup[0], tup[1]))
@@ -276,6 +296,10 @@ class shapeletXmoment:
         return mu
 
     def get_pq_full(self, nmax):
+        
+        """
+        get a list of (p,q) index from n=2 to n=`nmax`
+        """
 
         pq_list = []
 
@@ -303,6 +327,11 @@ class shapeletXmoment:
 
 
 def get_all_moments_fast(image, pqlist):
+    
+    """
+    A faster function for computing the PSF higher moments for an image. This only does the standardization
+    transformation to the image once for all the higher moments.
+    """
 
     results_list = []
 
