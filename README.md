@@ -7,7 +7,7 @@ This repository includes software to quantitatively test the relation between th
 It is based on the following papers:
  - Impact of Point Spread Function Higher Moments Error on Weak Gravitational Lensing; Zhang and Mandelbaum for LSST (2021), MNRAS - [ADS entry](https://ui.adsabs.harvard.edu/abs/2022MNRAS.510.1978Z/abstract)
  - Impact of Point Spread Function Higher Moments Error on Weak Gravitational Lensing II: A Comprehensive Study; Zhang et al. (2022), MNRAS [ADS entry](https://ui.adsabs.harvard.edu/abs/2022MNRAS.tmp.3141Z/abstract)
- - A General Framework for Removing Point Spread Function Additive Systematics in Cosmological Weak Lensing Analysis; Zhang et al. (2022), MNRAS [ADS entry](https://ui.adsabs.harvard.edu/abs/2022arXiv221203257Z/abstract)
+ - A General Framework for Removing Point Spread Function Additive Systematics in Cosmological Weak Lensing Analysis; Zhang et al. (2022), submitted [ADS entry](https://ui.adsabs.harvard.edu/abs/2022arXiv221203257Z/abstract)
 
  This code has functionality to do the following tasks:
  - change PSF second and higher moments through shapelet decomposition
