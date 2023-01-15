@@ -54,7 +54,7 @@ Data are analyzed in the notebooks in the folder "./notebooks"
 - ``fisher_forecast`` is a notebook that conducts a Fisher forecast to predict the cosmological parameters biases induced by the PSF higher moments if their impact on shear is not modeled. 
 
 Update:
-- ``Fit_PSF_systematics`` shows how to psfmod.py to compute the galaxy-PSF correlation function, PSF-PSF correlation function, and use  MCMC to infer the posterior of the PSF parameters. Users can use the argument in the class to turn on/off PSF higher moments parameters, constant shear, PSF-PSF correlation noise, and whether to consider higher moment g-p in the chi2. 
+- ``Fit_PSF_systematics`` shows how to psfmod.py to compute the galaxy-PSF correlation function, PSF-PSF correlation function, and use  MCMC to infer the posterior of the PSF parameters. Users can use the argument in the class to turn on/off PSF higher moments parameters, constant shear, PSF-PSF correlation noise, and whether to consider higher moment g-p in the chi2.  Also, relevant plots can be made in this notebook. 
 
 
 
@@ -62,8 +62,7 @@ Update:
 
 Figure can be found in the "./plots"
 - ``All_plots.ipynb`` is a notebook that reproduces all plots in the second paper. Users are welcomed to play with it. (The necessary data are stored in ./plots/pickle)
-Update: 
-- ``read_psfmod`` is a notebook for producing the PSF parameter posterior and other related plots in the paper III.
+
 
 
 ## Contact us
