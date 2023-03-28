@@ -325,7 +325,6 @@ class shapeletXmoment:
 
         return pq_except
 
-
 def get_all_moments_fast(image, pqlist):
     
     """
@@ -334,59 +333,47 @@ def get_all_moments_fast(image, pqlist):
     """
 
     results_list = []
-
-    image_results = galsim.hsm.FindAdaptiveMom(image)
-
-    image = image.array
-
-    y, x = mgrid[: image.shape[0], : image.shape[1]] + 1
-
-    psfresults = galsim.hsm.FindAdaptiveMom(galsim.Image(image, scale=1.0))
-    M = np.zeros((2, 2))
+    
+    image_array = image.array
+    
+    y, x = mgrid[:image_array.shape[0],:image_array.shape[1]]+1
+    psfresults = galsim.hsm.FindAdaptiveMom(image)
+    M = np.zeros((2,2))
     e1 = psfresults.observed_shape.e1
     e2 = psfresults.observed_shape.e2
     sigma4 = psfresults.moments_sigma**4
-    c = (1 + e1) / (1 - e1)
-    M[1][1] = np.sqrt(sigma4 / (c - 0.25 * e2**2 * (1 + c) ** 2))
-    M[0][0] = c * M[1][1]
-    M[0][1] = 0.5 * e2 * (M[1][1] + M[0][0])
+    c = (1+e1)/(1-e1)
+    M[1][1] = np.sqrt(sigma4/(c-0.25*e2**2*(1+c)**2))
+    M[0][0] = c*M[1][1]
+    M[0][1] = 0.5*e2*(M[1][1]+M[0][0])
     M[1][0] = M[0][1]
 
-    pos = np.array(
-        [x - psfresults.moments_centroid.x, y - psfresults.moments_centroid.y]
-    )
-    pos = np.swapaxes(pos, 0, 1)
-    pos = np.swapaxes(pos, 1, 2)
-
+    pos = np.array([x-psfresults.moments_centroid.x, y-psfresults.moments_centroid.y])
     inv_M = np.linalg.inv(M)
     sqrt_inv_M = alg.sqrtm(inv_M)
-    std_pos = np.zeros(pos.shape)
-    weight = np.zeros(pos.shape[0:2])
-    for i in range(pos.shape[0]):
-        for j in range(pos.shape[1]):
-            this_pos = pos[i][j]
-            this_standard_pos = np.matmul(sqrt_inv_M, this_pos)
-            std_pos[i][j] = this_standard_pos
-            weight[i][j] = np.exp(-0.5 * this_standard_pos.dot(this_standard_pos))
+    
+    std_pos = np.einsum('ij,jqp->iqp',sqrt_inv_M,pos)
+    weight = np.exp(-0.5* np.einsum('ijk,ijk->jk',std_pos,std_pos ))
 
-    std_x, std_y = std_pos[:, :, 0], std_pos[:, :, 1]
-
+    std_x, std_y = std_pos[0],std_pos[1]
+    
+    normalization = sum(image_array*weight)
+    image_weight = weight*image_array
     for tup in pqlist:
         p = tup[0]
         q = tup[1]
-
-        if q + p == 2:
-            if p == 2:
-                this_moment = image_results.observed_shape.e1
-            elif q == 2:
-                this_moment = image_results.observed_shape.e2
+        
+        if q+p==2:
+            if p==2:
+                this_moment = e1
+            elif q==2:
+                this_moment = e2
             else:
-                this_moment = image_results.moments_sigma
+                this_moment = psfresults.moments_sigma
         else:
-            this_moment = sum(std_x**p * std_y**q * weight * image) / sum(
-                image * weight
-            )
-
+            this_moment = sum(std_x**p*std_y**q*image_weight)/normalization
         results_list.append(this_moment)
-
+        
+    t3 = time.time()        
     return np.array(results_list)
+        
